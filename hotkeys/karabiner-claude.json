@@ -1,0 +1,45 @@
+{
+  "title": "Claude notification approver",
+  "rules": [
+    {
+      "description": "Both ⌘ keys together → Claude: approve (Allow once)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "simultaneous": [
+              { "key_code": "left_command" },
+              { "key_code": "right_command" }
+            ],
+            "simultaneous_options": {
+              "key_down_order": "insensitive",
+              "key_up_order": "insensitive"
+            },
+            "modifiers": { "optional": ["any"] }
+          },
+          "to": [
+            { "shell_command": "osascript $HOME/.claude-notification-approver/approve.applescript" }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Right ⌘ tapped alone → Claude: open chat (normal ⌘ shortcuts still work)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": { "optional": ["any"] }
+          },
+          "to": [
+            { "key_code": "right_command" }
+          ],
+          "to_if_alone": [
+            { "shell_command": "osascript $HOME/.claude-notification-approver/open-chat.applescript" }
+          ]
+        }
+      ]
+    }
+  ]
+}

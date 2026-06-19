@@ -46,6 +46,18 @@ Any global-hotkey launcher can run the scripts — pick one below. **Whichever y
 
 > Avoid bare function keys (F4 etc.) as triggers — macOS may intercept them as hardware media keys. A modifier combo (⌘F4, ⌃⌥⌘A, …) is safest.
 
+#### Karabiner-Elements — free, fastest (Command-key gestures)
+
+No reach, no letters — fire on the Command keys themselves (great on a laptop/trackpad):
+- **Both ⌘ together → approve** (deliberate two-thumb squeeze — can't misfire)
+- **Right ⌘ tapped alone → open chat** (your normal ⌘ shortcuts keep working)
+
+```sh
+brew install --cask karabiner-elements
+cp hotkeys/karabiner-claude.json ~/.config/karabiner/assets/complex_modifications/
+```
+Then **Karabiner → Complex Modifications → Add rule** and enable both. Grant Karabiner its permissions on first launch.
+
 #### Hammerspoon — free, recommended
 
 Add to `~/.hammerspoon/init.lua`, then reload Hammerspoon:
