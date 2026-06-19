@@ -26,7 +26,7 @@ The coordinate is calibrated once per screen and stored in a config file. See [W
 ## Requirements
 
 - macOS (tested on macOS 26 / Apple Silicon; works on Intel too)
-- [BetterTouchTool](https://folivora.ai/) — runs the script on a global hotkey
+- A **global-hotkey launcher** to run the scripts on a keypress — free options include [Hammerspoon](https://www.hammerspoon.org/), [skhd](https://github.com/koekeishiya/skhd), or macOS's built-in **Shortcuts** app ([BetterTouchTool](https://folivora.ai/) also works). See [Bind the hotkeys](#bind-the-hotkeys).
 - [`cliclick`](https://github.com/BlueM/cliclick) — moves/clicks the mouse (`brew install cliclick`)
 - The Claude desktop app, with **notification style set to "Alerts"** (System Settings → Notifications → Claude). Alerts stay on screen and expose the button; Banners auto-dismiss and hide it.
 
@@ -40,20 +40,46 @@ cd claude-notification-approver
 
 `install.sh` installs `cliclick`, copies the scripts to `~/.claude-notification-approver/`, and prints the exact BetterTouchTool snippets to paste.
 
-### BetterTouchTool setup
+### Bind the hotkeys
 
-Grant BetterTouchTool **Accessibility** *and* **Input Monitoring** (System Settings → Privacy & Security). Then add two triggers (Other Triggers → keyboard shortcut, global), each with a **"Run Apple Script (async in background)"** action:
+Any global-hotkey launcher can run the scripts — pick one below. **Whichever you choose, grant it Accessibility** (System Settings → Privacy & Security → Accessibility); macOS requires this to post the click. Ready-made configs live in [`hotkeys/`](hotkeys/).
+
+> Avoid bare function keys (F4 etc.) as triggers — macOS may intercept them as hardware media keys. A modifier combo (⌘F4, ⌃⌥⌘A, …) is safest.
+
+#### Hammerspoon — free, recommended
+
+Add to `~/.hammerspoon/init.lua`, then reload Hammerspoon:
+
+```lua
+hs.hotkey.bind({"cmd"}, "f4", function() hs.execute("osascript $HOME/.claude-notification-approver/approve.applescript", true) end)
+hs.hotkey.bind({"cmd", "shift"}, "f4", function() hs.execute("osascript $HOME/.claude-notification-approver/open-chat.applescript", true) end)
+```
+
+#### skhd — free, CLI
+
+`brew install skhd && skhd --start-service`, then add to `~/.skhdrc`:
+
+```
+cmd - f4         : osascript $HOME/.claude-notification-approver/approve.applescript
+cmd + shift - f4 : osascript $HOME/.claude-notification-approver/open-chat.applescript
+```
+
+#### macOS Shortcuts — built-in, no install
+
+1. Open **Shortcuts** → new shortcut → add a **Run Shell Script** action:
+   `osascript $HOME/.claude-notification-approver/approve.applescript`
+2. In the shortcut's details (ⓘ panel), assign a **keyboard shortcut** (e.g. ⌘F4).
+3. Repeat with a second shortcut for `open-chat.applescript`.
+4. Grant **Shortcuts** Accessibility when first prompted.
+
+#### BetterTouchTool — paid
+
+Two keyboard triggers, each a **"Run Apple Script (async in background)"** action:
 
 ```applescript
--- ⌘F4 (approve)
 run script (POSIX file "/Users/YOURNAME/.claude-notification-approver/approve.applescript")
 ```
-```applescript
--- ⌘⇧F4 (open chat)
-run script (POSIX file "/Users/YOURNAME/.claude-notification-approver/open-chat.applescript")
-```
-
-> Avoid plain function keys (F4 etc.) as the bare trigger — macOS may intercept them as hardware media keys. A modifier combo is safest.
+(and a second pointing at `open-chat.applescript`). Grant BTT **Accessibility** and **Input Monitoring**.
 
 ### Calibrate
 

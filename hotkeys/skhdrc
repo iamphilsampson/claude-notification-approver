@@ -1,0 +1,10 @@
+# skhd hotkeys for claude-notification-approver
+# Append to ~/.skhdrc, then: skhd --restart-service
+# Install skhd with: brew install skhd && skhd --start-service
+# Grant skhd Accessibility permission.
+#
+# cmd - f4         -> approve  (clicks "Allow once")
+# cmd + shift - f4 -> open chat (clicks the notification body)
+
+cmd - f4         : osascript $HOME/.claude-notification-approver/approve.applescript
+cmd + shift - f4 : osascript $HOME/.claude-notification-approver/open-chat.applescript

@@ -23,21 +23,19 @@ cp "$SRC"/approve.applescript "$SRC"/open-chat.applescript "$SRC"/calibrate.appl
 echo
 echo "Done. Next steps:"
 echo
-echo "1) Grant BetterTouchTool BOTH Accessibility AND Input Monitoring"
-echo "   (System Settings → Privacy & Security)."
+echo "1) Bind two global hotkeys to these scripts, using any launcher you like"
+echo "   (free: Hammerspoon, skhd, or macOS Shortcuts; paid: BetterTouchTool)."
+echo "   Ready-made configs are in the repo's hotkeys/ folder. They run:"
 echo
-echo "2) In BetterTouchTool add two global keyboard shortcuts, each running a"
-echo "   'Run Apple Script (async in background)' action:"
+echo "     Approve   ->  osascript \"$DEST/approve.applescript\""
+echo "     Open chat ->  osascript \"$DEST/open-chat.applescript\""
 echo
-echo "   Approve (e.g. ⌘F4):"
-echo "     run script (POSIX file \"$DEST/approve.applescript\")"
+echo "   Grant your chosen launcher Accessibility permission"
+echo "   (System Settings → Privacy & Security → Accessibility)."
 echo
-echo "   Open chat (e.g. ⌘⇧F4):"
-echo "     run script (POSIX file \"$DEST/open-chat.applescript\")"
+echo "2) Set Claude notifications to 'Alerts' (System Settings → Notifications → Claude)."
 echo
-echo "3) Set Claude notifications to 'Alerts' (System Settings → Notifications → Claude)."
-echo
-echo "4) Calibrate: trigger a Claude permission notification, then run and hold your"
+echo "3) Calibrate: trigger a Claude permission notification, then run and hold your"
 echo "   cursor on the 'Allow once' button for ~5s:"
 echo "     osascript \"$DEST/calibrate.applescript\""
 echo
