@@ -4,8 +4,6 @@ Approve (or open) Claude Code's macOS permission prompts with a **single keypres
 
 When Claude Code runs in the background and needs permission, macOS shows a notification with an **"Allow once"** button. This tool clicks that button for you when you press a global hotkey, then puts your cursor back where it was. You never leave your current app.
 
-![demo placeholder](docs/demo.gif)
-
 ## Why this exists
 
 Claude Code's desktop app has **no keyboard shortcut and no API to approve a permission prompt** — you have to click the button. If you're working in another app while Claude runs, that means stopping, finding the window, clicking, and going back. A hotkey that "presses Enter" doesn't work either: it goes to whatever app is focused, not to Claude, and even in Claude it would just send a chat message.
